@@ -1,5 +1,7 @@
 import { createRoot } from 'react-dom/client';
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+
 
 // Import statement to indicate that you need to bundle `./index.scss`
 import "./index.scss";
@@ -26,6 +28,30 @@ useEffect(()=>{
     </div>
   );
 };
+
+// Define propTypes for MyFlixApplication
+MyFlixApplication.propTypes = {
+  movies: PropTypes.arrayOf(PropTypes.shape({
+    Genre: PropTypes.shape({
+      Name: PropTypes.string.isRequired,
+      Description: PropTypes.string.isRequired,
+    }),
+    Director: PropTypes.shape({
+      Name: PropTypes.string.isRequired,
+      Bio: PropTypes.string.isRequired,
+      Birth: PropTypes.string.isRequired,
+      Death: PropTypes.string,
+    }),
+    Actors: PropTypes.arrayOf(PropTypes.string).isRequired,
+    _id: PropTypes.string.isRequired,
+    Title: PropTypes.string.isRequired,
+    Description: PropTypes.string.isRequired,
+    ImagePath: PropTypes.string.isRequired,
+    Featured: PropTypes.bool.isRequired,
+  })).isRequired,
+};
+
+
 
 // Finds the root of your app
 const container = document.querySelector("#root");
