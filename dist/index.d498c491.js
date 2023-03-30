@@ -2926,25 +2926,36 @@ $parcel$ReactRefreshHelpers$046e.prelude(module);
 try {
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _client = require("react-dom/client");
+var _react = require("react");
 // Import statement to indicate that you need to bundle `./index.scss`
 var _indexScss = require("./index.scss");
+var _s = $RefreshSig$();
 // Main component (will eventually use all the others)
 const MyFlixApplication = ()=>{
+    _s();
+    const [movies, setMovies] = (0, _react.useState)([]);
+    (0, _react.useEffect)(()=>{
+        fetch("https://myflixdb001.herokuapp.com/movies").then((response)=>response.json()).then((data)=>{
+            setMovies(data);
+            console.log("movie data:", data);
+        }).catch((error)=>console.log(error));
+    }, []);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         className: "my-flix",
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
             children: "Good morning"
         }, void 0, false, {
             fileName: "index.jsx",
-            lineNumber: 10,
+            lineNumber: 25,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "index.jsx",
-        lineNumber: 9,
+        lineNumber: 24,
         columnNumber: 5
     }, undefined);
 };
+_s(MyFlixApplication, "MO6b3PSP3RIUqZ8gtSrBZBVtBbs=");
 _c = MyFlixApplication;
 // Finds the root of your app
 const container = document.querySelector("#root");
@@ -2952,7 +2963,7 @@ const root = (0, _client.createRoot)(container);
 // Tells React to render your app in the root DOM element
 root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(MyFlixApplication, {}, void 0, false, {
     fileName: "index.jsx",
-    lineNumber: 20,
+    lineNumber: 35,
     columnNumber: 13
 }, undefined));
 var _c;
@@ -2963,7 +2974,7 @@ $RefreshReg$(_c, "MyFlixApplication");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./index.scss":"93cso","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"fDiVC"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","react":"21dqq","./index.scss":"93cso","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"fDiVC"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("182ab1e5cdd8c000");
 

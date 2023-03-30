@@ -1,26 +1,28 @@
 {
-  "name": "myflix-client",
-  "version": "1.0.0",
-  "description": "",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dannnnnh/myFlix-client.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/dannnnnh/myFlix-client/issues"
-  },
-  "homepage": "https://github.com/dannnnnh/myFlix-client#readme",
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
-    "@parcel/transformer-sass": "^2.8.3",
-    "process": "^0.11.10"
-  }
+    "name": "myflix-client",
+    "version": "1.0.0",
+    "description": "",
+    "scripts": {
+        "start": "parcel index.html",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dannnnnh/myFlix-client.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/dannnnnh/myFlix-client/issues"
+    },
+    "homepage": "https://github.com/dannnnnh/myFlix-client#readme",
+    "dependencies": {
+        "prop-types": "^15.8.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    },
+    "devDependencies": {
+        "@parcel/transformer-sass": "^2.8.3",
+        "process": "^0.11.10"
+    }
 }
