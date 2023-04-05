@@ -1,5 +1,14 @@
-$color: steelblue;
+$color : steelblue;
 
-.my-flix {
-    color: $color;
+.myflix {
+    color : $color;
 }
+
+
+button {
+    padding: 4px 12px 4px 12px;
+    color: whitesmoke;
+    background-color: dodgerblue;
+    border: none;
+    border-radius: 4px;
+  }
