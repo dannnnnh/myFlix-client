@@ -1,7 +1,7 @@
 import {createRoot} from 'react-dom/client';
 import {useState, useEffect} from 'react';
 import MainView from './components/MainView/main-view.jsx';
-import PropTypes from 'prop-types';
+import {PropTypes} from 'prop-types';
 
 
 // Import statement to indicate that you need to bundle `./index.scss`

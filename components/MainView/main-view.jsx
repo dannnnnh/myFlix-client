@@ -1,14 +1,16 @@
 import {useState} from "react";
-import {MovieCard} from "../movie-card/movie-card";
-import {MovieView} from "../movie-view/movie-view";
-import {LoginView} from "../login-view/login-view";
+import MovieCard from "../movie-card/movie-card";
+import MovieView from "../movie-view/movie-view";
+import LoginView from "../login-view/login-view";
 
 
-export default MainView = ({movies}) => {
+const MainView = ({movies}) => {
 
 
     const [selectedMovie, setSelectedMovie] = useState(null);
     const [user, setUser] = useState(null);
+    const [token, setToken] = useState(null);
+
 
 
     if (!user) {
@@ -30,7 +32,7 @@ export default MainView = ({movies}) => {
     }
 
     return (
-        <React.Fragment>
+        <div>
             <div> {
                 movies.map((movie) => {
                     return (
@@ -44,17 +46,19 @@ export default MainView = ({movies}) => {
                                         setSelectedMovie(newSelectedMovie);
                                     }
                                 }/>
-                            <button onClick={
-                                () => {
-                                    setUser(null);
-                                }
-                            }>Logout</button>
+                         
                         </div>
-
+   
                     )
                 })
             } </div>
-
-        </React.Fragment>
+ <button onClick={
+        () => {
+            setUser(null);
+        }
+    }>Logout</button>
+        </div>
     );
 }
+
+export default MainView;
