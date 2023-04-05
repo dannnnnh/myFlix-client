@@ -1,6 +1,6 @@
 import {createRoot} from 'react-dom/client';
 import {useState, useEffect} from 'react';
-import {MainView} from './components/MainView/main-view';
+import MainView from './components/MainView/main-view.jsx';
 import PropTypes from 'prop-types';
 
 
