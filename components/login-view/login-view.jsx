@@ -22,7 +22,9 @@ export const LoginView = ({onLoggedIn}) => {
             },
             body: JSON.stringify(data)
         }).then((response) => response.json()).then((data) => {
-            console.log("Login response:", data);
+            console.log("Login response:", data); // This line is already logging the response data, which includes the token.
+            console.log("Token:", data.token); // Add this line to log the token separately.
+        
             if (data.user) {
                 localStorage.setItem("user", JSON.stringify(data.user));
                 localStorage.setItem("token", data.token);
