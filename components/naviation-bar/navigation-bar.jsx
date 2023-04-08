@@ -8,7 +8,7 @@ function navigationBar({user, onLoggedOut}) {
             <Container>
                 <Navbar.Brand as={Link}
                     to="/">
-                    Books App
+                    Movies App
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -17,7 +17,7 @@ function navigationBar({user, onLoggedOut}) {
                             to="/login">Login</Nav.Link>
                         <Nav.Link as={Link}
                             to="/signup">Sign Up</Nav.Link>
-                             <Nav.Link as={Link}
+                        <Nav.Link as={Link}
                             to="/profile">Profile</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>

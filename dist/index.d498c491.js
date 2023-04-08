@@ -47302,7 +47302,7 @@ function navigationBar({ user , onLoggedOut  }) {
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Brand, {
                     as: (0, _reactRouterDom.Link),
                     to: "/",
-                    children: "Books App"
+                    children: "Movies App"
                 }, void 0, false, {
                     fileName: "components/naviation-bar/navigation-bar.jsx",
                     lineNumber: 9,
@@ -47345,7 +47345,7 @@ function navigationBar({ user , onLoggedOut  }) {
                             }, void 0, false, {
                                 fileName: "components/naviation-bar/navigation-bar.jsx",
                                 lineNumber: 20,
-                                columnNumber: 30
+                                columnNumber: 25
                             }, this)
                         ]
                     }, void 0, true, {
