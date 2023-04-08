@@ -38,7 +38,10 @@ const SignupView = () => {
 
 
     return (
-        <Form onSubmit={handleSubmit} style={{marginTop:"32px"}}>
+        <Form onSubmit={handleSubmit}
+            style={
+                {marginTop: "32px"}
+        }>
             <Form.Group controlId="formUsername">
 
                 <Form.Label>Username:</Form.Label>
@@ -81,7 +84,10 @@ const SignupView = () => {
                     }
                     required/>
             </Form.Group>
-            <Button type="submit" style={{marginTop:"16px"}}>Submit</Button>
+            <Button type="submit"
+                style={
+                    {marginTop: "16px"}
+            }>Submit</Button>
         </Form>
     );
 };

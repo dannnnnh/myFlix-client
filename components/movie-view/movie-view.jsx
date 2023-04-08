@@ -1,25 +1,29 @@
-import './movie-view.scss';
+import {useParams, Link} from "react-router-dom";
+import "./movie-view.scss";
 
-const MovieView = ({movie, onBackClick}) => {
+const MovieView = ({movies}) => {
+    const {movieId} = useParams();
+    const movie = movies.find((movie) => movie._id === movieId);
+
+    if (! movie) {
+        return <div>Movie not found</div>;
+    }
+
     return (
         <div>
             <div>
-                <h2>Title:{
+                <h2>Title: {
                     movie.Title
                 }</h2>
             </div>
             <div>
-                <p>Description:{
+                <p>Description: {
                     movie.Description
                 }</p>
             </div>
-            <button onClick={onBackClick}
-                className="back-button"
-                style={
-                    {cursor: "pointer"}
-            }>
-                Back
-            </button>
+            <Link to={`/`}>
+                <button className="back-button">Back</button>
+            </Link>
         </div>
     );
 };
