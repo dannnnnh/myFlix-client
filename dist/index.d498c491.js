@@ -27326,7 +27326,6 @@ const MainView = ()=>{
     _s();
     const [movies, setMovies] = (0, _react.useState)([]);
     const [user, setUser] = (0, _react.useState)(null);
-    const [token, setToken] = (0, _react.useState)(localStorage.getItem("token"));
     const handleLogout = ()=>{
         setUser(null);
         setToken(null);
@@ -27345,8 +27344,8 @@ const MainView = ()=>{
                 onLoggedOut: handleLogout
             }, void 0, false, {
                 fileName: "components/MainView/main-view.jsx",
-                lineNumber: 37,
-                columnNumber: 9
+                lineNumber: 34,
+                columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
                 className: "justify-content-md-center",
@@ -27364,8 +27363,8 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "components/MainView/main-view.jsx",
-                            lineNumber: 40,
-                            columnNumber: 13
+                            lineNumber: 37,
+                            columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
                             path: "/login",
@@ -27381,8 +27380,8 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "components/MainView/main-view.jsx",
-                            lineNumber: 54,
-                            columnNumber: 13
+                            lineNumber: 51,
+                            columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
                             path: "/movies/:movieId",
@@ -27401,8 +27400,8 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "components/MainView/main-view.jsx",
-                            lineNumber: 68,
-                            columnNumber: 13
+                            lineNumber: 65,
+                            columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
                             path: "/profile",
@@ -27414,15 +27413,14 @@ const MainView = ()=>{
                                     md: 8,
                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _profileViewDefault.default), {
                                         user: user,
-                                        favoriteMovies: user.favoriteMovies,
-                                        token: token
+                                        token: localStorage.getItem("token")
                                     }, void 0, false, void 0, void 0)
                                 }, void 0, false, void 0, void 0)
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "components/MainView/main-view.jsx",
-                            lineNumber: 84,
-                            columnNumber: 8
+                            lineNumber: 81,
+                            columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
                             path: "/",
@@ -27444,28 +27442,28 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "components/MainView/main-view.jsx",
-                            lineNumber: 103,
-                            columnNumber: 13
+                            lineNumber: 95,
+                            columnNumber: 11
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "components/MainView/main-view.jsx",
-                    lineNumber: 39,
-                    columnNumber: 11
+                    lineNumber: 36,
+                    columnNumber: 9
                 }, undefined)
             }, void 0, false, {
                 fileName: "components/MainView/main-view.jsx",
-                lineNumber: 38,
-                columnNumber: 9
+                lineNumber: 35,
+                columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "components/MainView/main-view.jsx",
-        lineNumber: 36,
-        columnNumber: 7
+        lineNumber: 33,
+        columnNumber: 5
     }, undefined);
 };
-_s(MainView, "tRMQadXCpFsNCm7Z5fOUr35nY+4=");
+_s(MainView, "ab5JO455OeNvAFNWOzXJw3WbfK8=");
 _c = MainView;
 exports.default = MainView;
 var _c;
