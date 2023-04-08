@@ -14,6 +14,8 @@ export const LoginView = ({onLoggedIn}) => {
             Password: password
         };
 
+        console.log("Login request data:", data); // log request data
+
 
         fetch("https://myflixdb001.herokuapp.com/login", {
             method: "POST",
@@ -21,7 +23,17 @@ export const LoginView = ({onLoggedIn}) => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(data)
-        }).then((response) => response.json()).then((data) => {
+        }).then((response) => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.indexOf("application/json") !== -1) {
+                return response.json();
+            } else {
+                return response.text();
+            }
+        }).then((data) => {
             console.log("Login response:", data);
             if (data.user) {
                 localStorage.setItem("user", JSON.stringify(data.user));
@@ -31,13 +43,17 @@ export const LoginView = ({onLoggedIn}) => {
                 alert("No such user");
             }
         }).catch((e) => {
+            console.error("Login error:", e);
             alert("Something went wrong");
         });
 
     };
 
     return (
-        <Form onSubmit={handleSubmit} style={{marginTop:"32px"}}>
+        <Form onSubmit={handleSubmit}
+            style={
+                {marginTop: "32px"}
+        }>
             <Form.Group controlId="formUsername">
 
 

@@ -10,6 +10,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import NavigationBar from "../naviation-bar/navigation-bar";
 
 const MainView = () => {
+  const [token, setToken] = useState(localStorage.getItem("token"));
   const [movies, setMovies] = useState([]);
   const [user, setUser] = useState(null);
 
@@ -79,19 +80,19 @@ const MainView = () => {
             }
           />
           <Route
-            path="/profile"
-            element={
-              <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : (
-                  <Col md={8}>
-                    <ProfileView user={user} />
-                  </Col>
-                )}
-              </>
-            }
-          />
+  path="/profile"
+  element={
+    <>
+      {!user ? (
+        <Navigate to="/login" replace />
+      ) : (
+        <Col md={8}>
+          <ProfileView user={user} token={token} />
+        </Col>
+      )}
+    </>
+  }
+/>
           <Route
             path="/"
             element={
