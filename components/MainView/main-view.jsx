@@ -79,17 +79,17 @@ const MainView = () => {
             }
           />
           <Route
-           path="/profile"
-           element={
-             <>
-               {!user ? (
-                 <Navigate to="/login" replace />
-               ) : (
-                 <Col md={8}>
-                   <ProfileView user={user} token={localStorage.getItem("token")} />
-                 </Col>
-               )}
-             </>
+            path="/profile"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : (
+                  <Col md={8}>
+                    <ProfileView user={user} />
+                  </Col>
+                )}
+              </>
             }
           />
           <Route

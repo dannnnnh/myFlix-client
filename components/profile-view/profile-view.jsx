@@ -25,23 +25,11 @@ const ProfileView = ({user, favoriteMovies, toggleFavorite, token}) => {
         }`, {
             method: "DELETE",
             headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json"
+                Authorization: `Bearer ${token}`
             }
         });
 
-
         const {success, message} = await response.json();
-
-        console.log(`Response status code: ${
-            response.status
-        }`);
-        console.log(`Response message: ${message}`);
-
-        console.log(`Response status code: ${
-            response.status
-        }`);
-        console.log(`Response message: ${message}`);
 
         if (success) {
             alert(message);
@@ -52,7 +40,6 @@ const ProfileView = ({user, favoriteMovies, toggleFavorite, token}) => {
         }
     };
 
-
     const handleInputChange = (event) => {
         const {name, value} = event.target;
         setUserData((prevUserData) => ({
@@ -61,71 +48,32 @@ const ProfileView = ({user, favoriteMovies, toggleFavorite, token}) => {
         }));
     };
 
-    console.log("Token before fetch:", token);
-
-
     const handleUpdate = async (event) => {
         event.preventDefault();
-
-        // Update the userData object with the new values from the input fields
-        setUserData({
-            ...userData,
-            username,
-            password,
-            email,
-            birthday
-        });
-        console.log("Token:", token);
-
-
         try {
-            console.log("User:", user);
-
             const response = await fetch(`https://myflixdb001.herokuapp.com/users/${
                 user.username
             }`, {
                 method: "PUT",
-                body: JSON.stringify(
-                    {
-                        ...userData,
-                        username,
-                        password,
-                        email,
-                        birthday
-                    }
-                ), // Pass the updated userData object
+                body: JSON.stringify(userData),
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json"
                 }
-
             });
 
-            if (response.ok) {
-                const contentType = response.headers.get("content-type");
-                if (contentType && contentType.indexOf("application/json") !== -1) {
-                    const {success, message, data} = await response.json();
-                    console.log(response);
-                    // Set the token in local storage
+            const {success, message, data} = await response.json();
+            console.log(response); // <-- log the response object
 
-
-                    if (success) {
-                        alert(message);
-                        setUpdateUser(false);
-                        setUserData({
-                            ...userData
-                        }); // update the userData state with the new values
-                        window.location.reload();
-                    } else {
-                        alert("Update failed");
-                    }
-                } else {
-                    alert("Received a non-JSON response from the server.");
-                    console.error("Received a non-JSON response from the server.");
-                }
+            if (success) {
+                alert(message);
+                setUpdateUser(false);
+                setUserData({
+                    ...userData
+                }); // update the userData state with the new values
+                window.location.reload();
             } else {
-                alert("Request failed with status code: " + response.status);
-                console.error("Request failed with status code: " + response.status);
+                alert("Update failed");
             }
         } catch (err) {
             console.error(err);
