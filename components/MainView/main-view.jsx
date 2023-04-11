@@ -13,6 +13,7 @@ const MainView = () => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [movies, setMovies] = useState([]);
   const [user, setUser] = useState(null);
+  console.log("User prop from MainView", user)
 
   const handleLogout = () => {
     setUser(null);
@@ -20,7 +21,10 @@ const MainView = () => {
     localStorage.clear();
   };
 
+
+
   useEffect(() => {
+    
     fetch("https://myflixdb001.herokuapp.com/movies")
       .then((response) => response.json())
       .then((data) => {
