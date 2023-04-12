@@ -27539,7 +27539,7 @@ function MovieCard({ movie , handleLike , liked , favoriteMovies  }) {
             minWidth: "20rem",
             maxWidth: "40rem"
         },
-        className: "shadow-lg p-3 rounded-4 text-center",
+        className: "shadow p-3 rounded-4 text-center",
         text: "secondary",
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
             children: [

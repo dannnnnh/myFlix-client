@@ -9,13 +9,13 @@ function MovieCard({movie, handleLike, liked, favoriteMovies}) {
 
     return (
         <Card style={
-                                    {
-                                        minWidth: "20rem",
-                                        maxWidth: "40rem"
-                                    }
-                                }
-                                className="shadow-lg p-3 rounded-4 text-center"
-                                text="secondary">
+                {
+                    minWidth: "20rem",
+                    maxWidth: "40rem"
+                }
+            }
+            className="shadow p-3 rounded-4 text-center"
+            text="secondary">
             <Card.Body>
                 <Card.Title>{
                     movie.Title
@@ -28,10 +28,11 @@ function MovieCard({movie, handleLike, liked, favoriteMovies}) {
                         encodeURIComponent(movie._id)
                     }`
                 }>
-                    <Button >Open</Button>
+                    <Button>Open</Button>
                 </Link>
                 {/* New like button */}
-                <Button className="m-2" variant={
+                <Button className="m-2"
+                    variant={
                         liked ? "success" : "outline-success"
                     }
                     onClick={
