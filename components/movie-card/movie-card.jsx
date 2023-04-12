@@ -1,12 +1,21 @@
 import React from 'react';
 import {Button, Card} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
+import './movieCard.css';
+
 
 function MovieCard({movie, handleLike, liked, favoriteMovies}) {
 
 
     return (
-        <Card>
+        <Card style={
+                                    {
+                                        minWidth: "20rem",
+                                        maxWidth: "40rem"
+                                    }
+                                }
+                                className="shadow-lg p-3 rounded-4 text-center"
+                                text="secondary">
             <Card.Body>
                 <Card.Title>{
                     movie.Title
@@ -19,10 +28,10 @@ function MovieCard({movie, handleLike, liked, favoriteMovies}) {
                         encodeURIComponent(movie._id)
                     }`
                 }>
-                    <Button variant="link">Open</Button>
+                    <Button >Open</Button>
                 </Link>
                 {/* New like button */}
-                <Button variant={
+                <Button className="m-2" variant={
                         liked ? "success" : "outline-success"
                     }
                     onClick={

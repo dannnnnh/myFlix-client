@@ -15,10 +15,10 @@ const MyFlixApplication = () => {
     const [movies, setMovies] = useState([]);
 
     return (
-        <Container>
+   
             <MainView movies={movies}
                 setMovies={setMovies}/>
-        </Container>
+  
     );
 };
 

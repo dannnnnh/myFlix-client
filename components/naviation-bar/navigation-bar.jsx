@@ -11,7 +11,7 @@ function navigationBar({user, onLoggedOut}) {
        
 
 
-        <Navbar bg="light" expand="lg">
+        <Navbar bg="light" variant="light" className="mb-4" sticky="top">
 
            
 

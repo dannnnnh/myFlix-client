@@ -173,7 +173,6 @@ const ProfileView = ({user, favoriteMovies, toggleFavorite, token}) => {
 
                                 <Card.Body>
                                     <Card.Title>Profile Information</Card.Title>
-                                    <Card.Text></Card.Text>
                                     <Form onSubmit={handleUpdate}
                                         className="w-100">
                                         <Form.Group controlId="formUsername" className="mb-4">

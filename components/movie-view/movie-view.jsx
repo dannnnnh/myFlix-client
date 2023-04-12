@@ -12,12 +12,12 @@ const MovieView = ({movies}) => {
     return (
         <div>
             <div>
-                <h2>Title: {
+                <h2>{
                     movie.Title
                 }</h2>
             </div>
             <div>
-                <p>Description: {
+                <p>{
                     movie.Description
                 }</p>
             </div>

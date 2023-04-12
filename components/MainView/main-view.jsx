@@ -8,6 +8,7 @@ import SignupView from "../signup-view/signup-view";
 import ProfileView from "../profile-view/profile-view";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import NavigationBar from "../naviation-bar/navigation-bar";
+import { Container } from "react-bootstrap";
 
 const MainView = () => {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -63,9 +64,15 @@ const MainView = () => {
   }, []);
 
   return (
+<div>
+  
+ 
+
     <BrowserRouter>
-      <NavigationBar user={user} onLoggedOut={handleLogout} />
-      <Row className="justify-content-md-center">
+    <NavigationBar user={user} onLoggedOut={handleLogout} />
+    <Container>
+
+    <Row className="justify-content-md-center main-view">
         <Routes>
           <Route
             path="/signup"
@@ -138,7 +145,7 @@ const MainView = () => {
                    {movies.map((movie) => {
   const liked = likedMovies.some((likedMovie) => likedMovie._id === movie._id);
   return (
-    <Col className="mb-4" key={movie._id} md={3}>
+    <Col className="mb-4"  key={movie._id} md={3}>
       <MovieCard movie={movie} handleLike={handleLike} liked={liked} />
     </Col>
   );
@@ -150,7 +157,10 @@ const MainView = () => {
           />
         </Routes>
       </Row>
+      </Container>
     </BrowserRouter>
+    
+    </div>
   );
 };
 
