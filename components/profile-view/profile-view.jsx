@@ -8,8 +8,6 @@ import Col from "react-bootstrap/Col";
 import {useEffect} from "react";
 import {Link} from "react-router-dom";
 import MovieCard from "../movie-card/movie-card";
-import {parseISO} from 'date-fns';
-
 
 import {parseISO, format} from "date-fns";
 
@@ -60,38 +58,35 @@ const ProfileView = ({user, favoriteMovies, toggleFavorite, token}) => {
         setBirthday(user.Birthday);
     }, [user]);
 
-
+//
     const handleUpdate = async (event) => {
-        event.preventDefault();
-        const userData = {
-            username: username,
-            password: password,
-            email: email,
-            birthday: birthday
+        event.preventDefault();  
+    
+        const data = {
+          Username: username,
+          Password: password,
+          Email: email,
+          Birthday: birthday
         };
-        try {
-            const response = await fetch(`https://myflixdb001.herokuapp.com/users/${
-                username
-            }`, {
-                method: "PUT",
-                body: JSON.stringify(userData),
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json"
-                }
-            });
-            const {success, message, data} = await response.json();
-            if (success) {
-                alert(message);
-                setUpdateUser(false);
-            } else {
-                console.error(message);
-                alert("Update failed");
-            }
-        } catch (error) {
-            console.error(error);
+    console.log(data)
+        const updateUser = await fetch(`https://myflixdb001.herokuapp.com/users/${user.Username}`, {
+          method: "PUT",
+          body: JSON.stringify(data),
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"},
+        })
+    
+        const response = await updateUser.json()
+        console.log(response)
+        if (response) {
+          alert("Account successfully updated! Please log in again");
+          localStorage.clear();
+          window.location.reload(); 
+        } else {
+          alert("Something went wrong");
         }
-    };
+      };
 
 
     const handleToggle = (movie) => {
@@ -211,6 +206,9 @@ const ProfileView = ({user, favoriteMovies, toggleFavorite, token}) => {
                                         </Form.Group>
                                         <Form.Group controlId="formBirthday" className="mb-4">
                                             <Form.Control type="date" placeholder="Birthday"
+                                                value={
+                                                    formatDate(birthday)
+                                                }
                                                 onChange={
                                                     (event) => setBirthday(event.target.value)
                                                 }
