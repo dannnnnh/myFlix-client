@@ -21,6 +21,34 @@ const MainView = () => {
     localStorage.clear();
   };
 
+  const [likedMovies, setLikedMovies] = useState([]); // New state for liked movies
+
+  const handleLike = async (movie) => {
+    const isLiked = likedMovies.some((likedMovie) => likedMovie._id === movie._id);
+    if (isLiked) {
+      // Remove the movie from the likedMovies array
+      setLikedMovies(likedMovies.filter((likedMovie) => likedMovie._id !== movie._id));
+      // Make API call to update user's data with the removed movie
+      await fetch(`https://myflixdb001.herokuapp.com/users/${user.username}/movies/${movie._id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } else {
+      // Add the movie to the likedMovies array
+      setLikedMovies([...likedMovies, movie]);
+      // Make API call to update user's data with the added movie
+      await fetch(`https://myflixdb001.herokuapp.com/users/${user.username}/movies/${movie._id}`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }
+  };
+  
+
 
 
   useEffect(() => {
@@ -91,7 +119,7 @@ const MainView = () => {
         <Navigate to="/login" replace />
       ) : (
         <Col md={8}>
-          <ProfileView user={user} token={token} />
+<ProfileView user={user} token={token} favoriteMovies={likedMovies} toggleFavorite={handleLike} />
         </Col>
       )}
     </>
@@ -107,11 +135,14 @@ const MainView = () => {
                   <Col>The list is empty!</Col>
                 ) : (
                   <>
-                    {movies.map((movie) => (
-                      <Col className="mb-4" key={movie.id} md={3}>
-                        <MovieCard movie={movie} />
-                      </Col>
-                    ))}
+                   {movies.map((movie) => {
+  const liked = likedMovies.some((likedMovie) => likedMovie._id === movie._id);
+  return (
+    <Col className="mb-4" key={movie._id} md={3}>
+      <MovieCard movie={movie} handleLike={handleLike} liked={liked} />
+    </Col>
+  );
+})}
                   </>
                 )}
               </>

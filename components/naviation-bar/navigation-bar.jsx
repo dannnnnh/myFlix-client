@@ -2,9 +2,19 @@ import {Navbar, Container, Nav} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
 
+
+
+
 function navigationBar({user, onLoggedOut}) {
     return (
+
+       
+
+
         <Navbar bg="light" expand="lg">
+
+           
+
             <Container>
                 <Navbar.Brand as={Link}
                     to="/">

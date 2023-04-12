@@ -2,9 +2,11 @@ import React from 'react';
 import {Button, Card} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 
-function MovieCard({movie, onMovieClick}) {
+function MovieCard({movie, handleLike, liked, favoriteMovies}) {
+
+
     return (
-        <Card> {/* <Card.Img variant="top" src={movie.ImagePath} /> */}
+        <Card>
             <Card.Body>
                 <Card.Title>{
                     movie.Title
@@ -15,11 +17,20 @@ function MovieCard({movie, onMovieClick}) {
                 <Link to={
                     `/movies/${
                         encodeURIComponent(movie._id)
-
                     }`
                 }>
                     <Button variant="link">Open</Button>
                 </Link>
+                {/* New like button */}
+                <Button variant={
+                        liked ? "success" : "outline-success"
+                    }
+                    onClick={
+                        () => handleLike(movie)
+                }>
+                    {
+                    liked ? "Liked" : "Like"
+                } </Button>
             </Card.Body>
         </Card>
     );

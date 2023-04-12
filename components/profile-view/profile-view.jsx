@@ -11,6 +11,7 @@ import MovieCard from "../movie-card/movie-card";
 
 import {parseISO, format} from "date-fns";
 
+
 const formatDate = (dateString) => {
     try {
         const date = parseISO(dateString);
@@ -58,35 +59,38 @@ const ProfileView = ({user, favoriteMovies, toggleFavorite, token}) => {
         setBirthday(user.Birthday);
     }, [user]);
 
-//
+    //
     const handleUpdate = async (event) => {
-        event.preventDefault();  
-    
+        event.preventDefault();
+
         const data = {
-          Username: username,
-          Password: password,
-          Email: email,
-          Birthday: birthday
+            Username: username,
+            Password: password,
+            Email: email,
+            Birthday: birthday
         };
-    console.log(data)
-        const updateUser = await fetch(`https://myflixdb001.herokuapp.com/users/${user.Username}`, {
-          method: "PUT",
-          body: JSON.stringify(data),
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json"},
+        console.log(data)
+        const updateUser = await fetch(`https://myflixdb001.herokuapp.com/users/${
+            user.Username
+        }`, {
+            method: "PUT",
+            body: JSON.stringify(data),
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
         })
-    
+
         const response = await updateUser.json()
         console.log(response)
         if (response) {
-          alert("Account successfully updated! Please log in again");
-          localStorage.clear();
-          window.location.reload(); 
+            alert("Account successfully updated! Please log in again");
+            localStorage.clear();
+            window.location.reload();
         } else {
-          alert("Something went wrong");
+            alert("Something went wrong");
         }
-      };
+    };
 
 
     const handleToggle = (movie) => {
@@ -243,18 +247,21 @@ const ProfileView = ({user, favoriteMovies, toggleFavorite, token}) => {
                     <h2 className="text-center mb-5">Favorite Movies</h2>
 
 
-                    {/* {favoriteMovies.length ? (
-              favoriteMovies.map((movie) => (
-                <MovieCard
-                  movie={movie}
-                  isFavorite={true}
-                  toggleFavorite={handleToggle}
-                  key={movie.id}
-                />
-              ))
-            ) : (
-              <p>No favorite movies</p>
-            )} */} </Row>
+                    {
+                    favoriteMovies && favoriteMovies.length ? (favoriteMovies.map((movie) => (
+                        <Col className="mb-4"
+                            key={
+                                movie._id
+                            }
+                            md={3}>
+                            <MovieCard movie={movie}
+                                handleLike={handleToggle}
+                                liked={true}/>
+                        </Col>
+                    ))) : (
+                        <p>No favorite movies</p>
+                    )
+                } </Row>
             </div>
         </React.Fragment>
     );
