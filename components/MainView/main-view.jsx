@@ -11,10 +11,13 @@ import NavigationBar from "../naviation-bar/navigation-bar";
 import { Container } from "react-bootstrap";
 
 const MainView = () => {
+  
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [movies, setMovies] = useState([]);
   const [user, setUser] = useState(null);
-  console.log("User prop from MainView", user)
+  const [searchTerm, setSearchTerm] = useState("");
+
+  
 
   const handleLogout = () => {
     setUser(null);
@@ -49,6 +52,21 @@ const MainView = () => {
     }
   };
   
+  const onSearchTermChange = (value) => {
+    setSearchTerm(value);
+  };
+
+  useEffect(() => {
+    fetch("https://myflixdb001.herokuapp.com/movies")
+      .then((response) => response.json())
+      .then((data) => {
+        if (searchTerm) {
+          setMovies(data.filter(movie => movie.Title.toLowerCase().includes(searchTerm.toLowerCase())));
+        } else {
+          setMovies(data);
+        }
+      });
+  }, [searchTerm]);
 
 
 
@@ -69,7 +87,7 @@ const MainView = () => {
  
 
     <BrowserRouter>
-    <NavigationBar user={user} onLoggedOut={handleLogout} />
+    <NavigationBar user={user} onLoggedOut={handleLogout} onSearchTermChange={onSearchTermChange} />
     <Container>
 
     <Row className="justify-content-md-center main-view">
