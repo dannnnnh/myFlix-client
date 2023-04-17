@@ -33,7 +33,7 @@ const MainView = () => {
       // Remove the movie from the likedMovies array
       setLikedMovies(likedMovies.filter((likedMovie) => likedMovie._id !== movie._id));
       // Make API call to update user's data with the removed movie
-      await fetch(`https://myflixdb001.herokuapp.com/users/${user.username}/movies/${movie._id}`, {
+      await fetch(`https://myflixdb001.herokuapp.com/users/${user.Username}/movies/${movie._id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -43,7 +43,7 @@ const MainView = () => {
       // Add the movie to the likedMovies array
       setLikedMovies([...likedMovies, movie]);
       // Make API call to update user's data with the added movie
-      await fetch(`https://myflixdb001.herokuapp.com/users/${user.username}/movies/${movie._id}`, {
+      await fetch(`https://myflixdb001.herokuapp.com/users/${user.Username}/movies/${movie._id}`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -57,6 +57,11 @@ const MainView = () => {
   };
 
   useEffect(() => {
+    if(token) {
+      setToken(localStorage.getItem('token'))
+      setUser(JSON.parse(localStorage.getItem('user')))
+    }
+
     fetch("https://myflixdb001.herokuapp.com/movies")
       .then((response) => response.json())
       .then((data) => {

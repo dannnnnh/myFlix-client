@@ -32,7 +32,7 @@ const ProfileView = ({user, favoriteMovies, toggleFavorite, token}) => {
 
     const handleDeleteUser = async () => {
         const response = await fetch(`https://myflixdb001.herokuapp.com/users/${
-            user.username
+            user.Username
         }`, {
             method: "DELETE",
             headers: {
@@ -109,22 +109,13 @@ const ProfileView = ({user, favoriteMovies, toggleFavorite, token}) => {
                 {
                 !updateUser ? (
                     <Row className="d-flex justify-content-center p-4">
-                        <Col sm={8}
-                            md={6}
-                            lg={5}
-                            xl={4}
-                            xxl={3}>
-                            <Card style={
-                                    {
-                                        minWidth: "20rem",
-                                        maxWidth: "40rem"
-                                    }
-                                }
-                                className="shadow-lg p-3 rounded-4 text-center"
-                                text="secondary">
+                        <Col>
+                            <Card className="shadow-lg p-3 rounded-4 text-center" text="secondary" style={{
+                                        maxWidth: "500px", marginLeft: "auto", marginRight: "auto"
+                                }}>
 
 
-                                <Card.Body>
+                                <Card.Body >
                                     <Card.Title>Profile Information</Card.Title>
                                     <Card.Text></Card.Text>
                                 </Card.Body>
@@ -157,19 +148,8 @@ const ProfileView = ({user, favoriteMovies, toggleFavorite, token}) => {
                     </Row>
                 ) : (
                     <Row className="d-flex justify-content-center p-4">
-                        <Col sm={8}
-                            md={6}
-                            lg={5}
-                            xl={4}
-                            xxl={3}>
-                            <Card style={
-                                    {
-                                        minWidth: "20rem",
-                                        maxWidth: "40rem"
-                                    }
-                                }
-                                className="shadow-lg p-3 rounded-4 text-center"
-                                text="secondary">
+                        <Col>
+                            <Card className="shadow-lg p-3 rounded-4 text-center" text="secondary">
 
                                 <Card.Body>
                                     <Card.Title>Profile Information</Card.Title>
@@ -242,25 +222,27 @@ const ProfileView = ({user, favoriteMovies, toggleFavorite, token}) => {
                     </Row>
                 )
             }
-                <Row className="justify-content-center py-5">
+                <div>
+
                     <h2 className="text-center mb-5">Favorite Movies</h2>
+                    <Row className="justify-content-center py-5" >
 
 
-                    {
-                    favoriteMovies && favoriteMovies.length ? (favoriteMovies.map((movie) => (
-                        <Col className="mb-4"
-                            key={
-                                movie._id
-                            }
-                            md={3}>
-                            <MovieCard movie={movie}
-                                handleLike={handleToggle}
-                                liked={true}/>
-                        </Col>
-                    ))) : (
-                        <p>No favorite movies</p>
-                    )
-                } </Row>
+                        {
+                        favoriteMovies && favoriteMovies.length ? (favoriteMovies.map((movie) => (
+                            <Col className="mb-4"
+                                key={
+                                    movie._id
+                            }  >
+                                <MovieCard movie={movie}
+                                    handleLike={handleToggle}
+                                    liked={true}/>
+                            </Col>
+                        ))) : (
+                            <p>No favorite movies</p>
+                        )
+                    } </Row>
+                </div>
             </div>
         </React.Fragment>
     );

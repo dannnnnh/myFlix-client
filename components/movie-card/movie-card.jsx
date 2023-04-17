@@ -9,10 +9,7 @@ function MovieCard({movie, handleLike, liked, favoriteMovies}) {
 
     return (
         <Card style={
-                {
-                    minWidth: "20rem",
-                    maxWidth: "40rem"
-                }
+                {Width: "100px"}
             }
             className="shadow p-3 rounded-4 text-center"
             text="secondary">
