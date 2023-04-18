@@ -32,25 +32,36 @@ const MainView = () => {
     if (isLiked) {
       // Remove the movie from the likedMovies array
       setLikedMovies(likedMovies.filter((likedMovie) => likedMovie._id !== movie._id));
-      // Make API call to update user's data with the removed movie
-      await fetch(`https://myflixdb001.herokuapp.com/users/${user.Username}/movies/${movie._id}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      try {
+        // Make API call to update user's data with the removed movie
+        await fetch(`https://myflixdb001.herokuapp.com/users/${user.Username}/movies/${movie._id}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      } catch (error) {
+        console.error(error);
+      }
     } else {
       // Add the movie to the likedMovies array
-      setLikedMovies([...likedMovies, movie]);
-      // Make API call to update user's data with the added movie
-      await fetch(`https://myflixdb001.herokuapp.com/users/${user.Username}/movies/${movie._id}`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      
+      try {
+        // Make API call to update user's data with the added movie
+        await fetch(`https://myflixdb001.herokuapp.com/users/${user.Username}/movies/${movie._id}`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setLikedMovies([...likedMovies, movie]);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
+  
   
   const onSearchTermChange = (value) => {
     setSearchTerm(value);

@@ -27334,19 +27334,19 @@ const MainView = ()=>{
         if (isLiked) {
             // Remove the movie from the likedMovies array
             setLikedMovies(likedMovies.filter((likedMovie)=>likedMovie._id !== movie._id));
-            // Make API call to update user's data with the removed movie
-            await fetch(`https://myflixdb001.herokuapp.com/users/${user.Username}/movies/${movie._id}`, {
-                method: "DELETE",
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-        } else {
-            // Add the movie to the likedMovies array
-            setLikedMovies([
-                ...likedMovies,
-                movie
-            ]);
+            try {
+                // Make API call to update user's data with the removed movie
+                await fetch(`https://myflixdb001.herokuapp.com/users/${user.Username}/movies/${movie._id}`, {
+                    method: "DELETE",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+            } catch (error) {
+                console.error(error);
+            }
+        } else // Add the movie to the likedMovies array
+        try {
             // Make API call to update user's data with the added movie
             await fetch(`https://myflixdb001.herokuapp.com/users/${user.Username}/movies/${movie._id}`, {
                 method: "POST",
@@ -27354,6 +27354,12 @@ const MainView = ()=>{
                     Authorization: `Bearer ${token}`
                 }
             });
+            setLikedMovies([
+                ...likedMovies,
+                movie
+            ]);
+        } catch (error) {
+            console.error(error);
         }
     };
     const onSearchTermChange = (value)=>{
@@ -27386,7 +27392,7 @@ const MainView = ()=>{
                     onSearchTermChange: onSearchTermChange
                 }, void 0, false, {
                     fileName: "components/MainView/main-view.jsx",
-                    lineNumber: 95,
+                    lineNumber: 106,
                     columnNumber: 5
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
@@ -27406,7 +27412,7 @@ const MainView = ()=>{
                                     }, void 0, false)
                                 }, void 0, false, {
                                     fileName: "components/MainView/main-view.jsx",
-                                    lineNumber: 100,
+                                    lineNumber: 111,
                                     columnNumber: 11
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27423,7 +27429,7 @@ const MainView = ()=>{
                                     }, void 0, false)
                                 }, void 0, false, {
                                     fileName: "components/MainView/main-view.jsx",
-                                    lineNumber: 114,
+                                    lineNumber: 125,
                                     columnNumber: 11
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27443,7 +27449,7 @@ const MainView = ()=>{
                                     }, void 0, false)
                                 }, void 0, false, {
                                     fileName: "components/MainView/main-view.jsx",
-                                    lineNumber: 128,
+                                    lineNumber: 139,
                                     columnNumber: 11
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27464,7 +27470,7 @@ const MainView = ()=>{
                                     }, void 0, false)
                                 }, void 0, false, {
                                     fileName: "components/MainView/main-view.jsx",
-                                    lineNumber: 144,
+                                    lineNumber: 155,
                                     columnNumber: 11
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27492,34 +27498,34 @@ const MainView = ()=>{
                                     }, void 0, false)
                                 }, void 0, false, {
                                     fileName: "components/MainView/main-view.jsx",
-                                    lineNumber: 158,
+                                    lineNumber: 169,
                                     columnNumber: 11
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "components/MainView/main-view.jsx",
-                            lineNumber: 99,
+                            lineNumber: 110,
                             columnNumber: 9
                         }, undefined)
                     }, void 0, false, {
                         fileName: "components/MainView/main-view.jsx",
-                        lineNumber: 98,
+                        lineNumber: 109,
                         columnNumber: 5
                     }, undefined)
                 }, void 0, false, {
                     fileName: "components/MainView/main-view.jsx",
-                    lineNumber: 96,
+                    lineNumber: 107,
                     columnNumber: 5
                 }, undefined)
             ]
         }, void 0, true, {
             fileName: "components/MainView/main-view.jsx",
-            lineNumber: 94,
+            lineNumber: 105,
             columnNumber: 5
         }, undefined)
     }, void 0, false, {
         fileName: "components/MainView/main-view.jsx",
-        lineNumber: 90,
+        lineNumber: 101,
         columnNumber: 1
     }, undefined);
 };
