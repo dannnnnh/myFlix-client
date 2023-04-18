@@ -22,7 +22,7 @@ const formatDate = (dateString) => {
 };
 
 
-const ProfileView = ({user, favoriteMovies, toggleFavorite, token}) => {
+const ProfileView = ({user, likedMovies, toggleFavorite, token}) => {
     const [updateUser, setUpdateUser] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -229,7 +229,7 @@ const ProfileView = ({user, favoriteMovies, toggleFavorite, token}) => {
 
 
                         {
-                        favoriteMovies && favoriteMovies.length ? (favoriteMovies.map((movie) => (
+                        likedMovies && likedMovies.length ? (likedMovies.map((movie) => (
                             <Col className="mb-4"
                                 key={
                                     movie._id

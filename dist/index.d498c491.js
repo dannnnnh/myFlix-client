@@ -27457,7 +27457,7 @@ const MainView = ()=>{
                                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _profileViewDefault.default), {
                                                 user: user,
                                                 token: token,
-                                                favoriteMovies: likedMovies,
+                                                likedMovies: likedMovies,
                                                 toggleFavorite: handleLike
                                             }, void 0, false, void 0, void 0)
                                         }, void 0, false, void 0, void 0)
@@ -46936,7 +46936,7 @@ const formatDate = (dateString)=>{
         return "Invalid Date";
     }
 };
-const ProfileView = ({ user , favoriteMovies , toggleFavorite , token  })=>{
+const ProfileView = ({ user , likedMovies , toggleFavorite , token  })=>{
     _s();
     const [updateUser, setUpdateUser] = (0, _react.useState)(false);
     const [username, setUsername] = (0, _react.useState)("");
@@ -47315,7 +47315,7 @@ const ProfileView = ({ user , favoriteMovies , toggleFavorite , token  })=>{
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
                                 className: "justify-content-center py-5",
                                 children: [
-                                    favoriteMovies && favoriteMovies.length ? favoriteMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                                    likedMovies && likedMovies.length ? likedMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                             className: "mb-4",
                                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCardDefault.default), {
                                                 movie: movie,

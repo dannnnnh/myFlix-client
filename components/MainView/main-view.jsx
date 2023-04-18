@@ -149,7 +149,7 @@ const MainView = () => {
         <Navigate to="/login" replace />
       ) : (
         <Col md={8}>
-<ProfileView user={user} token={token} favoriteMovies={likedMovies} toggleFavorite={handleLike} />
+<ProfileView user={user} token={token} likedMovies={likedMovies} toggleFavorite={handleLike} />
         </Col>
       )}
     </>
