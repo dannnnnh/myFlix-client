@@ -27462,9 +27462,9 @@ const MainView = ()=>{
                                             md: 8,
                                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _profileViewDefault.default), {
                                                 user: user,
-                                                token: token,
                                                 likedMovies: likedMovies,
-                                                toggleFavorite: handleLike
+                                                token: token,
+                                                movies: movies
                                             }, void 0, false, void 0, void 0)
                                         }, void 0, false, void 0, void 0)
                                     }, void 0, false)
@@ -27483,14 +27483,12 @@ const MainView = ()=>{
                                             children: "The list is empty!"
                                         }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
                                             children: movies.map((movie)=>{
-                                                const liked = likedMovies.some((likedMovie)=>likedMovie._id === movie._id);
                                                 return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                                     className: "mb-4",
                                                     md: 3,
                                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCardDefault.default), {
                                                         movie: movie,
-                                                        handleLike: handleLike,
-                                                        liked: liked
+                                                        user: user
                                                     }, void 0, false, void 0, void 0)
                                                 }, movie._id, false, void 0, void 0);
                                             })
@@ -46425,7 +46423,42 @@ var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
 var _movieCardCss = require("./movieCard.css");
-function MovieCard({ movie , handleLike , liked , favoriteMovies  }) {
+var _s = $RefreshSig$();
+function MovieCard({ movie , user  }) {
+    _s();
+    const token = localStorage.getItem("token");
+    const alreadyFavorite = user.FavoriteMovies.find((id)=>id === movie._id);
+    const [favorite, setFavorite] = (0, _react.useState)(alreadyFavorite ? true : false);
+    (0, _react.useEffect)(()=>{
+        setFavorite(alreadyFavorite ? true : false);
+    }, [
+        alreadyFavorite
+    ]);
+    const toggleFavorite = ()=>{
+        if (!token) return;
+        const url = `https://myflixdb001.herokuapp.com/users/${user.Username}/movies/${movie._id}`;
+        let requestOptions = {
+            method: "",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
+        if (alreadyFavorite) {
+            requestOptions.method = "DELETE";
+            alert("Movie deleted from favorites!");
+            setFavorite(false);
+        } else {
+            requestOptions.method = "POST";
+            alert("Movie added to favorites!");
+            setFavorite(true);
+        }
+        fetch(url, requestOptions).then((response)=>response.json()).then((data)=>{
+            console.log("data", data);
+            localStorage.setItem("user", JSON.stringify(data));
+        }).catch((e)=>{
+            alert("Something went wrong");
+        });
+    };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
         style: {
             Width: "100px"
@@ -46438,15 +46471,15 @@ function MovieCard({ movie , handleLike , liked , favoriteMovies  }) {
                     children: movie.Title
                 }, void 0, false, {
                     fileName: "components/movie-card/movie-card.jsx",
-                    lineNumber: 17,
-                    columnNumber: 17
+                    lineNumber: 57,
+                    columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
                     children: movie.Description
                 }, void 0, false, {
                     fileName: "components/movie-card/movie-card.jsx",
-                    lineNumber: 20,
-                    columnNumber: 17
+                    lineNumber: 58,
+                    columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
                     to: `/movies/${encodeURIComponent(movie._id)}`,
@@ -46454,39 +46487,37 @@ function MovieCard({ movie , handleLike , liked , favoriteMovies  }) {
                         children: "Open"
                     }, void 0, false, {
                         fileName: "components/movie-card/movie-card.jsx",
-                        lineNumber: 28,
-                        columnNumber: 21
+                        lineNumber: 60,
+                        columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "components/movie-card/movie-card.jsx",
-                    lineNumber: 23,
-                    columnNumber: 17
+                    lineNumber: 59,
+                    columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                     className: "m-2",
-                    variant: liked ? "success" : "outline-success",
-                    onClick: ()=>handleLike(movie),
-                    children: [
-                        liked ? "Liked" : "Like",
-                        " "
-                    ]
-                }, void 0, true, {
+                    variant: favorite ? "success" : "outline-success",
+                    onClick: toggleFavorite,
+                    children: favorite ? "Liked" : "Like"
+                }, void 0, false, {
                     fileName: "components/movie-card/movie-card.jsx",
-                    lineNumber: 31,
-                    columnNumber: 17
+                    lineNumber: 62,
+                    columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "components/movie-card/movie-card.jsx",
-            lineNumber: 16,
-            columnNumber: 13
+            lineNumber: 56,
+            columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "components/movie-card/movie-card.jsx",
-        lineNumber: 11,
-        columnNumber: 9
+        lineNumber: 49,
+        columnNumber: 5
     }, this);
 }
+_s(MovieCard, "MU34MPhOIe4wFRYslw/J1i/sM4c=");
 _c = MovieCard;
 exports.default = MovieCard;
 var _c;
@@ -46942,13 +46973,14 @@ const formatDate = (dateString)=>{
         return "Invalid Date";
     }
 };
-const ProfileView = ({ user , likedMovies , toggleFavorite , token  })=>{
+const ProfileView = ({ user , likedMovies , token , movies  })=>{
     _s();
     const [updateUser, setUpdateUser] = (0, _react.useState)(false);
     const [username, setUsername] = (0, _react.useState)("");
     const [password, setPassword] = (0, _react.useState)("");
     const [email, setEmail] = (0, _react.useState)("");
     const [birthday, setBirthday] = (0, _react.useState)("");
+    const favMovies = movies.filter((movie)=>user.FavoriteMovies.includes(movie._id));
     const handleDeleteUser = async ()=>{
         const response = await fetch(`https://myflixdb001.herokuapp.com/users/${user.Username}`, {
             method: "DELETE",
@@ -46998,16 +47030,13 @@ const ProfileView = ({ user , likedMovies , toggleFavorite , token  })=>{
             window.location.reload();
         } else alert("Something went wrong");
     };
-    const handleToggle = (movie)=>{
-        toggleFavorite(movie);
-    };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactDefault.default).Fragment, {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 children: user.username
             }, void 0, false, {
                 fileName: "components/profile-view/profile-view.jsx",
-                lineNumber: 104,
+                lineNumber: 103,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -47031,18 +47060,18 @@ const ProfileView = ({ user , likedMovies , toggleFavorite , token  })=>{
                                                 children: "Profile Information"
                                             }, void 0, false, {
                                                 fileName: "components/profile-view/profile-view.jsx",
-                                                lineNumber: 119,
+                                                lineNumber: 118,
                                                 columnNumber: 37
                                             }, undefined),
                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _cardDefault.default).Text, {}, void 0, false, {
                                                 fileName: "components/profile-view/profile-view.jsx",
-                                                lineNumber: 120,
+                                                lineNumber: 119,
                                                 columnNumber: 37
                                             }, undefined)
                                         ]
                                     }, void 0, true, {
                                         fileName: "components/profile-view/profile-view.jsx",
-                                        lineNumber: 118,
+                                        lineNumber: 117,
                                         columnNumber: 33
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _listGroupDefault.default), {
@@ -47057,7 +47086,7 @@ const ProfileView = ({ user , likedMovies , toggleFavorite , token  })=>{
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "components/profile-view/profile-view.jsx",
-                                                lineNumber: 123,
+                                                lineNumber: 122,
                                                 columnNumber: 37
                                             }, undefined),
                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _listGroupDefault.default).Item, {
@@ -47065,7 +47094,7 @@ const ProfileView = ({ user , likedMovies , toggleFavorite , token  })=>{
                                                 children: "Password: **********"
                                             }, void 0, false, {
                                                 fileName: "components/profile-view/profile-view.jsx",
-                                                lineNumber: 125,
+                                                lineNumber: 124,
                                                 columnNumber: 37
                                             }, undefined),
                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _listGroupDefault.default).Item, {
@@ -47077,7 +47106,7 @@ const ProfileView = ({ user , likedMovies , toggleFavorite , token  })=>{
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "components/profile-view/profile-view.jsx",
-                                                lineNumber: 129,
+                                                lineNumber: 128,
                                                 columnNumber: 37
                                             }, undefined),
                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _listGroupDefault.default).Item, {
@@ -47089,13 +47118,13 @@ const ProfileView = ({ user , likedMovies , toggleFavorite , token  })=>{
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "components/profile-view/profile-view.jsx",
-                                                lineNumber: 131,
+                                                lineNumber: 130,
                                                 columnNumber: 37
                                             }, undefined)
                                         ]
                                     }, void 0, true, {
                                         fileName: "components/profile-view/profile-view.jsx",
-                                        lineNumber: 122,
+                                        lineNumber: 121,
                                         columnNumber: 33
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _cardDefault.default).Body, {
@@ -47107,33 +47136,33 @@ const ProfileView = ({ user , likedMovies , toggleFavorite , token  })=>{
                                                 children: "EDIT"
                                             }, void 0, false, {
                                                 fileName: "components/profile-view/profile-view.jsx",
-                                                lineNumber: 138,
+                                                lineNumber: 137,
                                                 columnNumber: 41
                                             }, undefined)
                                         }, void 0, false, {
                                             fileName: "components/profile-view/profile-view.jsx",
-                                            lineNumber: 137,
+                                            lineNumber: 136,
                                             columnNumber: 37
                                         }, undefined)
                                     }, void 0, false, {
                                         fileName: "components/profile-view/profile-view.jsx",
-                                        lineNumber: 136,
+                                        lineNumber: 135,
                                         columnNumber: 33
                                     }, undefined)
                                 ]
                             }, void 0, true, {
                                 fileName: "components/profile-view/profile-view.jsx",
-                                lineNumber: 113,
+                                lineNumber: 112,
                                 columnNumber: 29
                             }, undefined)
                         }, void 0, false, {
                             fileName: "components/profile-view/profile-view.jsx",
-                            lineNumber: 112,
+                            lineNumber: 111,
                             columnNumber: 25
                         }, undefined)
                     }, void 0, false, {
                         fileName: "components/profile-view/profile-view.jsx",
-                        lineNumber: 111,
+                        lineNumber: 110,
                         columnNumber: 21
                     }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
                         className: "d-flex justify-content-center p-4",
@@ -47147,7 +47176,7 @@ const ProfileView = ({ user , likedMovies , toggleFavorite , token  })=>{
                                             children: "Profile Information"
                                         }, void 0, false, {
                                             fileName: "components/profile-view/profile-view.jsx",
-                                            lineNumber: 155,
+                                            lineNumber: 154,
                                             columnNumber: 37
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default), {
@@ -47168,12 +47197,12 @@ const ProfileView = ({ user , likedMovies , toggleFavorite , token  })=>{
                                                         required: true
                                                     }, void 0, false, {
                                                         fileName: "components/profile-view/profile-view.jsx",
-                                                        lineNumber: 159,
+                                                        lineNumber: 158,
                                                         columnNumber: 45
                                                     }, undefined)
                                                 }, void 0, false, {
                                                     fileName: "components/profile-view/profile-view.jsx",
-                                                    lineNumber: 158,
+                                                    lineNumber: 157,
                                                     columnNumber: 41
                                                 }, undefined),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
@@ -47188,12 +47217,12 @@ const ProfileView = ({ user , likedMovies , toggleFavorite , token  })=>{
                                                         required: true
                                                     }, void 0, false, {
                                                         fileName: "components/profile-view/profile-view.jsx",
-                                                        lineNumber: 172,
+                                                        lineNumber: 171,
                                                         columnNumber: 45
                                                     }, undefined)
                                                 }, void 0, false, {
                                                     fileName: "components/profile-view/profile-view.jsx",
-                                                    lineNumber: 171,
+                                                    lineNumber: 170,
                                                     columnNumber: 41
                                                 }, undefined),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
@@ -47209,20 +47238,20 @@ const ProfileView = ({ user , likedMovies , toggleFavorite , token  })=>{
                                                             required: true
                                                         }, void 0, false, {
                                                             fileName: "components/profile-view/profile-view.jsx",
-                                                            lineNumber: 181,
+                                                            lineNumber: 180,
                                                             columnNumber: 45
                                                         }, undefined),
                                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Text, {
                                                             className: "text-muted"
                                                         }, void 0, false, {
                                                             fileName: "components/profile-view/profile-view.jsx",
-                                                            lineNumber: 188,
+                                                            lineNumber: 187,
                                                             columnNumber: 45
                                                         }, undefined)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "components/profile-view/profile-view.jsx",
-                                                    lineNumber: 180,
+                                                    lineNumber: 179,
                                                     columnNumber: 41
                                                 }, undefined),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
@@ -47237,12 +47266,12 @@ const ProfileView = ({ user , likedMovies , toggleFavorite , token  })=>{
                                                         required: true
                                                     }, void 0, false, {
                                                         fileName: "components/profile-view/profile-view.jsx",
-                                                        lineNumber: 191,
+                                                        lineNumber: 190,
                                                         columnNumber: 45
                                                     }, undefined)
                                                 }, void 0, false, {
                                                     fileName: "components/profile-view/profile-view.jsx",
-                                                    lineNumber: 190,
+                                                    lineNumber: 189,
                                                     columnNumber: 41
                                                 }, undefined),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -47254,7 +47283,7 @@ const ProfileView = ({ user , likedMovies , toggleFavorite , token  })=>{
                                                             children: "SAVE"
                                                         }, void 0, false, {
                                                             fileName: "components/profile-view/profile-view.jsx",
-                                                            lineNumber: 204,
+                                                            lineNumber: 203,
                                                             columnNumber: 45
                                                         }, undefined),
                                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
@@ -47263,7 +47292,7 @@ const ProfileView = ({ user , likedMovies , toggleFavorite , token  })=>{
                                                             children: "DELETE"
                                                         }, void 0, false, {
                                                             fileName: "components/profile-view/profile-view.jsx",
-                                                            lineNumber: 207,
+                                                            lineNumber: 206,
                                                             columnNumber: 45
                                                         }, undefined),
                                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
@@ -47272,40 +47301,40 @@ const ProfileView = ({ user , likedMovies , toggleFavorite , token  })=>{
                                                             children: "CANCEL"
                                                         }, void 0, false, {
                                                             fileName: "components/profile-view/profile-view.jsx",
-                                                            lineNumber: 211,
+                                                            lineNumber: 210,
                                                             columnNumber: 45
                                                         }, undefined)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "components/profile-view/profile-view.jsx",
-                                                    lineNumber: 203,
+                                                    lineNumber: 202,
                                                     columnNumber: 41
                                                 }, undefined)
                                             ]
                                         }, void 0, true, {
                                             fileName: "components/profile-view/profile-view.jsx",
-                                            lineNumber: 156,
+                                            lineNumber: 155,
                                             columnNumber: 37
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "components/profile-view/profile-view.jsx",
-                                    lineNumber: 154,
+                                    lineNumber: 153,
                                     columnNumber: 33
                                 }, undefined)
                             }, void 0, false, {
                                 fileName: "components/profile-view/profile-view.jsx",
-                                lineNumber: 152,
+                                lineNumber: 151,
                                 columnNumber: 29
                             }, undefined)
                         }, void 0, false, {
                             fileName: "components/profile-view/profile-view.jsx",
-                            lineNumber: 151,
+                            lineNumber: 150,
                             columnNumber: 25
                         }, undefined)
                     }, void 0, false, {
                         fileName: "components/profile-view/profile-view.jsx",
-                        lineNumber: 150,
+                        lineNumber: 149,
                         columnNumber: 21
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -47315,57 +47344,56 @@ const ProfileView = ({ user , likedMovies , toggleFavorite , token  })=>{
                                 children: "Favorite Movies"
                             }, void 0, false, {
                                 fileName: "components/profile-view/profile-view.jsx",
-                                lineNumber: 227,
+                                lineNumber: 226,
                                 columnNumber: 21
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
                                 className: "justify-content-center py-5",
                                 children: [
-                                    likedMovies && likedMovies.length ? likedMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                                    favMovies.length ? favMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                             className: "mb-4",
                                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCardDefault.default), {
                                                 movie: movie,
-                                                handleLike: handleToggle,
-                                                liked: true
+                                                user: user
                                             }, void 0, false, {
                                                 fileName: "components/profile-view/profile-view.jsx",
-                                                lineNumber: 237,
+                                                lineNumber: 234,
                                                 columnNumber: 33
                                             }, undefined)
                                         }, movie._id, false, {
                                             fileName: "components/profile-view/profile-view.jsx",
                                             lineNumber: 233,
-                                            columnNumber: 29
+                                            columnNumber: 31
                                         }, undefined)) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                                         children: "No favorite movies"
                                     }, void 0, false, {
                                         fileName: "components/profile-view/profile-view.jsx",
-                                        lineNumber: 242,
+                                        lineNumber: 238,
                                         columnNumber: 29
                                     }, undefined),
                                     " "
                                 ]
                             }, void 0, true, {
                                 fileName: "components/profile-view/profile-view.jsx",
-                                lineNumber: 228,
+                                lineNumber: 227,
                                 columnNumber: 21
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "components/profile-view/profile-view.jsx",
-                        lineNumber: 225,
+                        lineNumber: 224,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "components/profile-view/profile-view.jsx",
-                lineNumber: 108,
+                lineNumber: 107,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "components/profile-view/profile-view.jsx",
-        lineNumber: 102,
+        lineNumber: 101,
         columnNumber: 9
     }, undefined);
 };

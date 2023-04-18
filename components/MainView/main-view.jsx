@@ -160,7 +160,7 @@ const MainView = () => {
         <Navigate to="/login" replace />
       ) : (
         <Col md={8}>
-<ProfileView user={user} token={token} likedMovies={likedMovies} toggleFavorite={handleLike} />
+<ProfileView user={user} likedMovies={likedMovies} token={token} movies={movies} />
         </Col>
       )}
     </>
@@ -176,11 +176,10 @@ const MainView = () => {
                   <Col>The list is empty!</Col>
                 ) : (
                   <>
-                   {movies.map((movie) => {
-  const liked = likedMovies.some((likedMovie) => likedMovie._id === movie._id);
+                  {movies.map((movie) => {
   return (
-    <Col className="mb-4"  key={movie._id} md={3}>
-      <MovieCard movie={movie} handleLike={handleLike} liked={liked} />
+    <Col className="mb-4" key={movie._id} md={3}>
+      <MovieCard movie={movie} user={user} />
     </Col>
   );
 })}

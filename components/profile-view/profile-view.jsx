@@ -22,12 +22,15 @@ const formatDate = (dateString) => {
 };
 
 
-const ProfileView = ({user, likedMovies, toggleFavorite, token}) => {
+const ProfileView = ({user, likedMovies, token, movies}) => {
     const [updateUser, setUpdateUser] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
+
+
+    const favMovies = movies.filter((movie) => user.FavoriteMovies.includes(movie._id));
 
 
     const handleDeleteUser = async () => {
@@ -92,10 +95,6 @@ const ProfileView = ({user, likedMovies, toggleFavorite, token}) => {
         }
     };
 
-
-    const handleToggle = (movie) => {
-        toggleFavorite(movie);
-    };
 
 
     return (
@@ -229,16 +228,13 @@ const ProfileView = ({user, likedMovies, toggleFavorite, token}) => {
 
 
                         {
-                        likedMovies && likedMovies.length ? (likedMovies.map((movie) => (
-                            <Col className="mb-4"
-                                key={
-                                    movie._id
-                            }  >
-                                <MovieCard movie={movie}
-                                    handleLike={handleToggle}
-                                    liked={true}/>
-                            </Col>
-                        ))) : (
+                           favMovies.length ? (
+                            favMovies.map((movie) => (
+                              <Col className="mb-4" key={movie._id}>
+                                <MovieCard movie={movie} user={user} />
+                              </Col>
+                            ))
+                        ) : (
                             <p>No favorite movies</p>
                         )
                     } </Row>
